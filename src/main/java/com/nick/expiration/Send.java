@@ -1,4 +1,4 @@
-package com.nick.simpleTest;
+package com.nick.expiration;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -23,13 +23,13 @@ public class Send {
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
         String message = "Hello World!";
 
-        //byte[] messageBodyBytes = "Hello, world!".getBytes();
-        //AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
-        //       .expiration("10000")
-        //        .build();
-        //channel.basicPublish("", QUEUE_NAME, properties, messageBodyBytes);
+        byte[] messageBodyBytes = "Hello, world!".getBytes();
+        AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
+                .expiration("10000")
+                .build();
+        channel.basicPublish("", QUEUE_NAME, properties, messageBodyBytes);
 
-        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+        //channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
         logger.info(" [x] Sent '{}'" ,message );
 
         channel.close();
