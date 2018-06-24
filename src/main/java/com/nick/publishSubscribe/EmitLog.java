@@ -23,10 +23,11 @@ public class EmitLog {
         //String message = getMessage(argv);
         String message = "hello publish and subscribe.";
 
-        channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
+        channel.basicPublish(EXCHANGE_NAME, "key_nick", null, message.getBytes());
         System.out.println(" [x] Sent '" + message + "'");
 
         channel.close();
         connection.close();
+        System.exit(0);
     }
 }
